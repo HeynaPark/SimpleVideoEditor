@@ -39,6 +39,8 @@ class MyWindow(QMainWindow, ui):
         self.pb_size.clicked.connect(self.sizeEdit)
         self.pb_time.clicked.connect(self.timeEdit)
         self.list_file.itemClicked.connect(self.fileInfo)
+        self.list_file.itemEntered.connect(self.selectAuto)
+        
                
         self.radio_1920.setChecked(True)
         self.radio_avc.setChecked(True)
@@ -59,6 +61,8 @@ class MyWindow(QMainWindow, ui):
         
         for file in self.filelist:
             self.list_file.addItem(file)
+        self.list_file.setCurrentRow(0)
+        self.fileInfo()
             
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
@@ -74,6 +78,8 @@ class MyWindow(QMainWindow, ui):
             l = []
             for url in event.mimeData().urls():
                 self.list_file.addItem(url.toLocalFile())
+            self.list_file.setCurrentRow(0)
+            self.fileInfo()
         else:
             event.ignore()       
             
@@ -123,6 +129,9 @@ class MyWindow(QMainWindow, ui):
             subprocess.run("ffmpeg -i " + str(self.inputFile) + " -ss "+ str(start) + " -to " + str(end) + " "+ outfile)
         print("Process Done.")
         self.lb_done.setText("Process Done.")
+        
+    def selectAuto(self):
+        self.list_file.setCurrentRow(0)
         
 if __name__ == "__main__":
     app = QApplication(sys.argv)
