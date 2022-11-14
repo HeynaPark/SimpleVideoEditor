@@ -38,6 +38,7 @@ class MyWindow(QMainWindow, ui):
         self.pb_codec.clicked.connect(self.codecEdit)
         self.pb_size.clicked.connect(self.sizeEdit)
         self.pb_time.clicked.connect(self.timeEdit)
+        self.pb_frame.clicked.connect(self.addFrameNum)
         self.list_file.itemClicked.connect(self.fileInfo)
         self.list_file.itemEntered.connect(self.selectAuto)
         
@@ -62,7 +63,9 @@ class MyWindow(QMainWindow, ui):
         for file in self.filelist:
             self.list_file.addItem(file)
         self.list_file.setCurrentRow(0)
-        self.fileInfo()
+ 
+        if self.filelist!=[]:
+            self.fileInfo()
             
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
@@ -129,6 +132,13 @@ class MyWindow(QMainWindow, ui):
             subprocess.run("ffmpeg -i " + str(self.inputFile) + " -ss "+ str(start) + " -to " + str(end) + " "+ outfile)
         print("Process Done.")
         self.lb_done.setText("Process Done.")
+        
+    def addFrameNum(self):
+        self.lb_done.setText(" ")
+        outfile = os.path.splitext(self.inputFile)[0]+str('_frame.mp4')
+        subprocess.run("ffmpeg -i " + str(self.inputFile) + " -vf \"drawtext=fontfile=Arial.ttf: text='%{frame_num}': start_number=0: x=(w-tw)/2: y=(h-lh)/3: fontcolor=black: fontsize=40: box=1: boxcolor=white: boxborderw=5\" -c:a copy " + str(outfile))
+        self.lb_done.setText("Process Done.")
+        
         
     def selectAuto(self):
         self.list_file.setCurrentRow(0)
