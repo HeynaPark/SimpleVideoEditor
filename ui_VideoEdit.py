@@ -17,11 +17,11 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(418, 676)
+        MainWindow.resize(559, 804)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.gridLayout_7 = QGridLayout(self.centralwidget)
-        self.gridLayout_7.setObjectName(u"gridLayout_7")
+        self.gridLayout_8 = QGridLayout(self.centralwidget)
+        self.gridLayout_8.setObjectName(u"gridLayout_8")
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.groupBox = QGroupBox(self.centralwidget)
@@ -167,22 +167,40 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.groupBox_4)
 
+        self.groupBox_5 = QGroupBox(self.centralwidget)
+        self.groupBox_5.setObjectName(u"groupBox_5")
+        self.gridLayout_7 = QGridLayout(self.groupBox_5)
+        self.gridLayout_7.setObjectName(u"gridLayout_7")
+        self.verticalLayout_4 = QVBoxLayout()
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.pb_frame = QPushButton(self.groupBox_5)
+        self.pb_frame.setObjectName(u"pb_frame")
+
+        self.verticalLayout_4.addWidget(self.pb_frame)
+
+
+        self.gridLayout_7.addLayout(self.verticalLayout_4, 0, 0, 1, 1)
+
+
+        self.verticalLayout_2.addWidget(self.groupBox_5)
+
         self.verticalLayout_2.setStretch(0, 4)
         self.verticalLayout_2.setStretch(1, 1)
         self.verticalLayout_2.setStretch(2, 1)
         self.verticalLayout_2.setStretch(3, 1)
+        self.verticalLayout_2.setStretch(4, 1)
 
-        self.gridLayout_7.addLayout(self.verticalLayout_2, 0, 0, 1, 1)
+        self.gridLayout_8.addLayout(self.verticalLayout_2, 0, 0, 1, 1)
 
         self.lb_done = QLabel(self.centralwidget)
         self.lb_done.setObjectName(u"lb_done")
 
-        self.gridLayout_7.addWidget(self.lb_done, 1, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.lb_done, 1, 0, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 418, 22))
+        self.menubar.setGeometry(QRect(0, 0, 559, 22))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -212,6 +230,8 @@ class Ui_MainWindow(object):
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"start:", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"end:", None))
         self.pb_time.setText(QCoreApplication.translate("MainWindow", u"START", None))
+        self.groupBox_5.setTitle(QCoreApplication.translate("MainWindow", u"Show Frame number ", None))
+        self.pb_frame.setText(QCoreApplication.translate("MainWindow", u"START", None))
         self.lb_done.setText("")
     # retranslateUi
 
