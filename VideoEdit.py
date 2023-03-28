@@ -79,7 +79,8 @@ class MyWindow(QMainWindow, ui):
             event.accept()
             l = []
             for url in event.mimeData().urls():
-                self.list_file.addItem(url.toLocalFile())
+                self.list_file.insertItem(0, url.toLocalFile())
+                # self.list_file.addItem(url.toLocalFile())
             self.list_file.setCurrentRow(0)
             self.fileInfo()
         else:
@@ -195,6 +196,7 @@ class MyWindow(QMainWindow, ui):
     def timeEdit(self):
         self.lb_done.setText(" ")
         outfile = os.path.splitext(self.inputFile)[0]+str('_timeCut.mp4')
+        outfile = self.newName(outfile)
         start = self.line_start.text()
         end = self.line_end.text()
         if (start != "" and end != ""):
