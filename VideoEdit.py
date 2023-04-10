@@ -95,14 +95,16 @@ class MyWindow(QMainWindow, ui):
         vid = cv2.VideoCapture(file)
         wid = vid.get(cv2.CAP_PROP_FRAME_WIDTH)
         hei = vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
-        codec = vid.get(cv2.CAP_PROP_FOURCC)
+        fourcc = vid.get(cv2.CAP_PROP_FOURCC)
         len = vid.get(cv2.CAP_PROP_FRAME_COUNT)
         fps = vid.get(cv2.CAP_PROP_FPS)
         time = len/fps
+        codec = int(fourcc).to_bytes(4, byteorder='little')
+        codec_name = codec.decode('ascii')
 
         self.lb_file.setText("File : " + str(file))
         self.lb_size.setText("Size : " + str(int(wid)) + " , " + str(int(hei)))
-        self.lb_codec.setText("Codec :" + str(codec))
+        self.lb_codec.setText("Codec :" + str(codec_name))
         self.lb_len.setText("Length : " + str(math.trunc(time)) + " s")
 
         self.cap = vid
@@ -125,46 +127,6 @@ class MyWindow(QMainWindow, ui):
             uniq += 1
         print(output)
         return output
-
-    # def sizeEdit(self):
-    #     outfile = ""
-    #     fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-    #     wid_new = 1920
-    #     hei_new = 1080
-
-    #     if self.radio_960.isChecked():
-    #         wid_new = 960
-    #         hei_new = 540
-    #     elif self.radio_1280.isChecked():
-    #         wid_new = 1280
-    #         hei_new = 720
-    #     elif self.radio_3840.isChecked():
-    #         wid_new = 3840
-    #         hei_new = 2160
-
-    #     outfile = os.path.splitext(self.inputFile)[
-    #         0]+str('_%d.mp4') % (wid_new)
-    #     outfile = self.newName(outfile)
-    #     out = cv2.VideoWriter(outfile, fourcc, self.fps, (wid_new, hei_new))
-
-    #     while True:
-    #         ret, frame = self.cap.read()
-    #         if ret == True:
-    #             if self.wid > wid_new:
-    #                 frame_rsz = cv2.resize(
-    #                     frame, (wid_new, hei_new), fx=0, fy=0, interpolation=cv2.INTER_LINEAR)
-    #             else:
-    #                 frame_rsz = cv2.resize(
-    #                     frame, (wid_new, hei_new), fx=0, fy=0, interpolation=cv2.INTER_LINEAR)
-    #             out.write(frame_rsz)
-    #         else:
-    #             break
-    #     self.cap.release()
-    #     out.release()
-    #     cv2.destroyAllWindows()
-
-    #     print("Process Done.")
-    #     self.lb_done.setText("Process Done.")
 
     def sizeEdit(self):
         self.lb_done.setText(" ")
