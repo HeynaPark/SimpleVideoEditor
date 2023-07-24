@@ -157,10 +157,16 @@ class MyWindow(QMainWindow, ui):
 
     def timeEdit(self):
         self.lb_done.setText(" ")
-        outfile = os.path.splitext(self.inputFile)[0]+str('_timeCut.mp4')
-        outfile = self.newName(outfile)
         start = self.line_start.text()
         end = self.line_end.text()
+        start_str = str(start)
+        end_str = str(end)
+
+        outfile = os.path.splitext(self.inputFile)[
+            0] + '_' + start_str + '_' + end_str + '_timeCut.mp4'
+        # outfile = os.path.splitext(self.inputFile)[0]+str('_timeCut.mp4')
+        outfile = self.newName(outfile)
+
         if (start != "" and end != ""):
             subprocess.run("ffmpeg -i " + str(self.inputFile) + " -ss " +
                            str(start) + " -to " + str(end) + " " + outfile)
